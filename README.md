@@ -243,7 +243,7 @@ O estabelecimento é preenchido no formulário de cadastro e, ao salvar, o aplic
 
 ![Cadastro preenchido](docs/screenshots/cadastro-estabelecimento.png)
 
-![Mensagem de cadastro realizado](docs/screenshots/mensagem-estabelecimento-cadastrado.png)
+![**Abrir imagem do Cadastro Preenchido**](docs/screenshots/cadastro-estabelecimento.png)
 
 ### 2. Ações adicionais sobre o registro
 
