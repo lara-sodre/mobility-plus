@@ -158,9 +158,9 @@ O formulário permite cadastrar um estabelecimento, informando nome, endereço, 
 
 Após salvar, o aplicativo retorna para a tela anterior e exibe uma mensagem confirmando que o estabelecimento foi cadastrado.
 
-![Mensagem de estabelecimento cadastrado](docs/screenshots/mensagem-estabelecimento-cadastrado.png)
+![Mensagem de estabelecimento cadastrado](docs/screenshots/mensagem-estabelecimento.png)
 
-[**Abrir imagem da mensagem de cadastro**](docs/screenshots/mensagem-estabelecimento-cadastrado.png)
+[**Abrir imagem da mensagem de cadastro**](docs/screenshots/mensagem-estabelecimento.png)
 
 ### 5. Detalhes do estabelecimento
 
@@ -192,7 +192,7 @@ Antes de excluir, o aplicativo solicita confirmação do usuário por meio de um
 
 ![Confirmação de exclusão](docs/screenshots/excluir-estabelecimento.png)
 
-[**Abrir imagem da confirmação de exclusão](docs/screenshots/excluir-estabelecimento.png)
+[**Abrir imagem da confirmação de exclusão**](docs/screenshots/excluir-estabelecimento.png)
 
 ### 9. Mensagem de exclusão
 
