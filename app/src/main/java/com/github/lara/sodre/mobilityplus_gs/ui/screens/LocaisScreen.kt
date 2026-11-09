@@ -1,3 +1,4 @@
+
 package com.github.lara.sodre.mobilityplus_gs.ui.screens
 
 import androidx.compose.foundation.clickable
@@ -46,7 +47,9 @@ fun LocaisScreen(
         containerColor = Color(0xFFF5F6FA),
         topBar = {
             TopAppBar(
-                title = { Text("Locais acessíveis") },
+                title = {
+                    Text("Locais acessíveis")
+                },
                 navigationIcon = {
                     TextButton(onClick = onVoltar) {
                         Text("Voltar")
@@ -75,7 +78,9 @@ fun LocaisScreen(
             OutlinedTextField(
                 value = pesquisa,
                 onValueChange = { pesquisa = it },
-                label = { Text("Pesquisar estabelecimento") },
+                label = {
+                    Text("Pesquisar estabelecimento")
+                },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
@@ -96,8 +101,12 @@ fun LocaisScreen(
 
                     FilterChip(
                         selected = filtro == opcao,
-                        onClick = { filtro = opcao },
-                        label = { Text(opcao) }
+                        onClick = {
+                            filtro = opcao
+                        },
+                        label = {
+                            Text(opcao)
+                        }
                     )
                 }
             }
@@ -119,7 +128,10 @@ fun LocaisScreen(
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
 
-                    items(filtrados, key = { it.id }) { local ->
+                    items(
+                        filtrados,
+                        key = { it.id }
+                    ) { local ->
 
                         Card(
                             modifier = Modifier

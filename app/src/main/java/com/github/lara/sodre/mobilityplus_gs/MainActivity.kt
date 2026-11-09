@@ -8,7 +8,6 @@ import com.github.lara.sodre.mobilityplus_gs.data.LocalRepository
 import com.github.lara.sodre.mobilityplus_gs.navigation.AppNavigation
 import com.github.lara.sodre.mobilityplus_gs.ui.theme.MobilityPlusTheme
 
-
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +16,8 @@ class MainActivity : ComponentActivity() {
         val database = AppDatabase.getDatabase(this)
 
         val repository = LocalRepository(
-            database.localDao()
+            dao = database.localDao(),
+            preferenciasDao = database.preferenciasDao()
         )
 
         setContent {
@@ -25,7 +25,6 @@ class MainActivity : ComponentActivity() {
             MobilityPlusTheme {
 
                 AppNavigation(repository)
-
             }
         }
     }

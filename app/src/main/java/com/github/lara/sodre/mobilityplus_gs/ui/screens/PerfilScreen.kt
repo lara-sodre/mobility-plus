@@ -1,6 +1,5 @@
 package com.github.lara.sodre.mobilityplus_gs.ui.screens
 
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -9,12 +8,17 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.github.lara.sodre.mobilityplus_gs.data.PreferenciasAcessibilidade
+import com.github.lara.sodre.mobilityplus_gs.viewmodel.LocalViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PerfilScreen(
+    viewModel: LocalViewModel,
     onVoltar: () -> Unit
 ) {
+
+    val preferenciasSalvas by viewModel.preferencias.collectAsState()
 
     var fisica by rememberSaveable { mutableStateOf(false) }
     var visual by rememberSaveable { mutableStateOf(false) }
@@ -25,12 +29,29 @@ fun PerfilScreen(
     var bengala by rememberSaveable { mutableStateOf(false) }
     var mobilidadeReduzida by rememberSaveable { mutableStateOf(false) }
 
-    var mensagem by remember { mutableStateOf(false) }
+    var salvando by remember { mutableStateOf(false) }
+    var mensagem by remember { mutableStateOf<String?>(null) }
+    var sucesso by remember { mutableStateOf(false) }
+
+    // Atualiza os campos quando o Room disponibiliza os dados.
+    LaunchedEffect(preferenciasSalvas) {
+
+        fisica = preferenciasSalvas.fisica
+        visual = preferenciasSalvas.visual
+        auditiva = preferenciasSalvas.auditiva
+        intelectual = preferenciasSalvas.intelectual
+
+        cadeiraRodas = preferenciasSalvas.cadeiraRodas
+        bengala = preferenciasSalvas.bengala
+        mobilidadeReduzida = preferenciasSalvas.mobilidadeReduzida
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Meu perfil") },
+                title = {
+                    Text("Meu perfil")
+                },
                 navigationIcon = {
                     TextButton(onClick = onVoltar) {
                         Text("Voltar")
@@ -49,20 +70,20 @@ fun PerfilScreen(
         ) {
 
             Text(
-                "Perfil de acessibilidade",
+                text = "Perfil de acessibilidade",
                 style = MaterialTheme.typography.headlineSmall
             )
 
             Spacer(Modifier.height(8.dp))
 
             Text(
-                "Personalize suas necessidades para encontrar locais mais adequados."
+                text = "Personalize suas necessidades para encontrar locais mais adequados."
             )
 
             Spacer(Modifier.height(24.dp))
 
             Text(
-                "Tipo de deficiência",
+                text = "Tipo de deficiência",
                 style = MaterialTheme.typography.titleMedium
             )
 
@@ -71,28 +92,29 @@ fun PerfilScreen(
                     .fillMaxWidth()
                     .padding(vertical = 10.dp)
             ) {
+
                 Column(
                     modifier = Modifier.padding(12.dp)
                 ) {
 
                     PerfilOpcao("Deficiência física", fisica) {
                         fisica = it
-                        mensagem = false
+                        mensagem = null
                     }
 
                     PerfilOpcao("Deficiência visual", visual) {
                         visual = it
-                        mensagem = false
+                        mensagem = null
                     }
 
                     PerfilOpcao("Deficiência auditiva", auditiva) {
                         auditiva = it
-                        mensagem = false
+                        mensagem = null
                     }
 
                     PerfilOpcao("Deficiência intelectual", intelectual) {
                         intelectual = it
-                        mensagem = false
+                        mensagem = null
                     }
                 }
             }
@@ -100,7 +122,7 @@ fun PerfilScreen(
             Spacer(Modifier.height(16.dp))
 
             Text(
-                "Dispositivos e necessidades",
+                text = "Dispositivos e necessidades",
                 style = MaterialTheme.typography.titleMedium
             )
 
@@ -109,6 +131,7 @@ fun PerfilScreen(
                     .fillMaxWidth()
                     .padding(vertical = 10.dp)
             ) {
+
                 Column(
                     modifier = Modifier.padding(12.dp)
                 ) {
@@ -118,7 +141,7 @@ fun PerfilScreen(
                         cadeiraRodas
                     ) {
                         cadeiraRodas = it
-                        mensagem = false
+                        mensagem = null
                     }
 
                     PerfilOpcao(
@@ -126,7 +149,7 @@ fun PerfilScreen(
                         bengala
                     ) {
                         bengala = it
-                        mensagem = false
+                        mensagem = null
                     }
 
                     PerfilOpcao(
@@ -134,15 +157,22 @@ fun PerfilScreen(
                         mobilidadeReduzida
                     ) {
                         mobilidadeReduzida = it
-                        mensagem = false
+                        mensagem = null
                     }
                 }
             }
 
-            if (mensagem) {
+            mensagem?.let { texto ->
+
+                Spacer(Modifier.height(12.dp))
+
                 Text(
-                    "Preferências registradas nesta sessão!",
-                    color = MaterialTheme.colorScheme.primary
+                    text = texto,
+                    color = if (sucesso) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.error
+                    }
                 )
             }
 
@@ -150,11 +180,48 @@ fun PerfilScreen(
 
             Button(
                 onClick = {
-                    mensagem = true
+
+                    salvando = true
+                    mensagem = null
+
+                    val preferencias = PreferenciasAcessibilidade(
+                        id = 1,
+                        fisica = fisica,
+                        visual = visual,
+                        auditiva = auditiva,
+                        intelectual = intelectual,
+                        cadeiraRodas = cadeiraRodas,
+                        bengala = bengala,
+                        mobilidadeReduzida = mobilidadeReduzida
+                    )
+
+                    viewModel.salvarPreferencias(preferencias) { resultado ->
+
+                        salvando = false
+                        sucesso = resultado
+
+                        mensagem = if (resultado) {
+                            "Preferências salvas com sucesso!"
+                        } else {
+                            "Não foi possível salvar as preferências. Tente novamente."
+                        }
+                    }
                 },
+                enabled = !salvando,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Salvar preferências")
+
+                if (salvando) {
+
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        strokeWidth = 2.dp
+                    )
+
+                } else {
+
+                    Text("Salvar preferências")
+                }
             }
         }
     }
@@ -168,12 +235,14 @@ fun PerfilOpcao(
 ) {
 
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 2.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
         Text(
-            titulo,
+            text = titulo,
             modifier = Modifier
                 .weight(1f)
                 .padding(top = 12.dp)
@@ -185,4 +254,3 @@ fun PerfilOpcao(
         )
     }
 }
-

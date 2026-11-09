@@ -1,18 +1,18 @@
 package com.github.lara.sodre.mobilityplus_gs.navigation
 
-import com.github.lara.sodre.mobilityplus_gs.data.LocalRepository
-import com.github.lara.sodre.mobilityplus_gs.viewmodel.LocalViewModel
 import com.github.lara.sodre.mobilityplus_gs.viewmodel.LocalViewModelFactory
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
+import com.github.lara.sodre.mobilityplus_gs.data.LocalRepository
 import com.github.lara.sodre.mobilityplus_gs.ui.screens.CadastroScreen
 import com.github.lara.sodre.mobilityplus_gs.ui.screens.DetalhesScreen
 import com.github.lara.sodre.mobilityplus_gs.ui.screens.HomeScreen
 import com.github.lara.sodre.mobilityplus_gs.ui.screens.LocaisScreen
 import com.github.lara.sodre.mobilityplus_gs.ui.screens.PerfilScreen
+import com.github.lara.sodre.mobilityplus_gs.viewmodel.LocalViewModel
 
 
 @Composable
@@ -143,9 +143,9 @@ fun AppNavigation(
         }
 
         // PERFIL DE ACESSIBILIDADE
-        composable("perfil") {
-
-            PerfilScreen (
+        composable(route = "perfil") {
+            PerfilScreen(
+                viewModel = viewModel,
                 onVoltar = {
                     navController.popBackStack()
                 }

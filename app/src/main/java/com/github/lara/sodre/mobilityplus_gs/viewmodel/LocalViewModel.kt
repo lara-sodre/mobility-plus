@@ -1,17 +1,20 @@
 package com.github.lara.sodre.mobilityplus_gs.viewmodel
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.lara.sodre.mobilityplus_gs.data.Local
 import com.github.lara.sodre.mobilityplus_gs.data.LocalRepository
+import com.github.lara.sodre.mobilityplus_gs.data.PreferenciasAcessibilidade
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class LocalViewModel(
     private val repository: LocalRepository
 ) : ViewModel() {
+
+    // ESTABELECIMENTOS
 
     val locais = repository.listar().stateIn(
         scope = viewModelScope,
@@ -43,6 +46,37 @@ class LocalViewModel(
     ) {
         viewModelScope.launch {
             resultado(repository.buscar(id))
+        }
+    }
+
+    // PREFERÊNCIAS DE ACESSIBILIDADE
+
+    val preferencias = repository.observarPreferencias()
+        .map { preferenciasSalvas ->
+            preferenciasSalvas ?: PreferenciasAcessibilidade()
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = PreferenciasAcessibilidade()
+        )
+
+    fun salvarPreferencias(
+        preferencias: PreferenciasAcessibilidade,
+        resultado: (Boolean) -> Unit = {}
+    ) {
+        viewModelScope.launch {
+
+            try {
+
+                repository.salvarPreferencias(preferencias)
+
+                resultado(true)
+
+            } catch (erro: Exception) {
+
+                resultado(false)
+            }
         }
     }
 }
