@@ -8,7 +8,9 @@ A proposta é facilitar o acesso a informações que auxiliem pessoas com defici
 
 ## Problema identificado
 
-A falta de informações sobre acessibilidade em estabelecimentos e espaços urbanos representa uma barreira para a autonomia e a mobilidade de muitas pessoas. Nem sempre é possível saber antecipadamente se um local possui rampa de acesso, piso tátil ou recursos de sinalização sonora e visual. Além disso, a acessibilidade não deve ser tratada como uma característica única. Um estabelecimento pode possuir rampa, mas não oferecer piso tátil, por exemplo. Por isso, é importante apresentar os recursos individualmente, permitindo que cada pessoa avalie quais características atendem às suas necessidades.
+A acessibilidade urbana ainda apresenta diversas barreiras para pessoas com deficiência permanente ou mobilidade reduzida. Muitas vezes, a falta de informações sobre a estrutura de estabelecimentos e espaços urbanos dificulta o planejamento de deslocamentos e a escolha de locais adequados.
+
+Nem sempre é possível saber antecipadamente se um local possui rampa de acesso, piso tátil ou recursos de sinalização sonora e visual. Além disso, a acessibilidade não deve ser tratada como uma característica única. Um estabelecimento pode possuir rampa, mas não oferecer piso tátil, por exemplo. Por isso, é importante apresentar os recursos individualmente, permitindo que cada pessoa avalie quais características atendem às suas necessidades.
 
 ## Público beneficiado
 
@@ -90,13 +92,15 @@ O projeto foi organizado em camadas, buscando separar as responsabilidades da in
 
 ![organizacao-projeto](docs/screenshots/organizacao-projeto.png)
 
+[**Abrir imagem da organização do projeto**](docs/screenshots/organizacao-projeto.png)
+
 ## Persistência de dados
 
-O aplicativo utiliza Room Database para armazenar localmente os estabelecimentos cadastrados.
+O aplicativo utiliza Room Database para armazenar localmente os estabelecimentos cadastrados e as preferências de acessibilidade.
 
 A organização da persistência utiliza:
 
-- **Entity:** representa os dados dos estabelecimentos;
+- **Entity:** representa os dados dos estabelecimentos e das preferências;
 - **DAO:** define as operações de acesso ao banco de dados;
 - **Database:** configura o banco de dados Room;
 - **Repository:** centraliza o acesso aos dados;
@@ -122,87 +126,6 @@ As capturas a seguir apresentam as principais telas do Mobility+, demonstrando o
 
 A tela inicial apresenta o nome e a proposta do Mobility+, além de disponibilizar acesso às principais funcionalidades do aplicativo.
 
-![Tela inicial do Mobility+](docs/screenshots/pagina-inicial.png)
+![Tela inicial do Mobility+](docs/screenshots/tela-inicial.png)
 
-[**Abrir imagem da tela inicial**](docs/screenshots/pagina-inicial.png)
-
-### Cadastro de estabelecimento
-
-O formulário permite cadastrar um estabelecimento, informando nome, endereço, descrição e características de acessibilidade, como rampa, piso tátil e sinalizações.
-
-![Cadastro de estabelecimento](docs/screenshots/cadastro-estabelecimento.png)
-
-[**Abrir imagem do cadastro de estabelecimento**](docs/screenshots/cadastro-estabelecimento.png)
-
-### Lista de locais
-
-A tela apresenta os estabelecimentos cadastrados, permitindo consultar os registros e utilizar os recursos de pesquisa e filtragem disponíveis.
-
-![Lista de locais acessíveis](docs/screenshots/locais-acessiveis.png)
-
-[**Abrir imagem da lista de locais**](docs/screenshots/locais-acessiveis.png)
-
-### Detalhes do estabelecimento
-
-Na tela de detalhes, o usuário pode consultar as informações do estabelecimento selecionado e visualizar os recursos de acessibilidade informados no cadastro.
-
-![Detalhes do estabelecimento](docs/screenshots/detalhes-local.png)
-
-[**Abrir imagem dos detalhes do estabelecimento**](docs/screenshots/detalhes-local.png)
-
-### Perfil de acessibilidade
-
-O perfil permite selecionar características relacionadas às necessidades e condições de mobilidade do usuário, contribuindo para uma experiência mais alinhada às suas preferências.
-
-![Perfil de acessibilidade](docs/screenshots/perfil-acessibilidade.png)
-
-[**Abrir imagem do perfil de acessibilidade**](docs/screenshots/perfil-acessibilidade.png)
-
-### Confirmação das preferências
-
-Após selecionar as opções desejadas, o usuário pode acionar a opção de salvar preferências. A interface apresenta uma mensagem de confirmação da ação.
-
-![Confirmação das preferências](docs/screenshots/salvar-preferencias.png)
-
-[**Abrir imagem da confirmação das preferências**](docs/screenshots/salvar-preferencias.png)
-
-## Fluxo principal de utilização
-
-O fluxo principal do Mobility+ foi organizado para permitir uma navegação simples entre as funcionalidades:
-
-1. O usuário acessa a tela inicial do aplicativo.
-2. Seleciona a opção de cadastrar um estabelecimento.
-3. Preenche as informações do local e seleciona os recursos de acessibilidade disponíveis.
-4. Após o cadastro, o estabelecimento fica disponível na listagem de locais.
-5. O usuário pode pesquisar, utilizar filtros e selecionar um estabelecimento para consultar seus detalhes.
-6. No perfil de acessibilidade, pode selecionar suas características e preferências.
-
-Esse fluxo demonstra a proposta central do aplicativo: facilitar o registro e a consulta de informações relevantes sobre acessibilidade.
-
-## Como executar o projeto
-
-Para executar o Mobility+ em ambiente local:
-
-1. Clone ou baixe o repositório.
-2. Abra o projeto no Android Studio.
-3. Aguarde a sincronização do Gradle.
-4. Inicie um emulador Android ou conecte um dispositivo compatível.
-5. Execute o aplicativo utilizando o botão **Run**.
-
-**Requisitos:** Android Studio, Android SDK e ambiente de execução Android compatível com a configuração do projeto.
-
-## Considerações finais
-
-O Mobility+ utiliza a tecnologia como ferramenta de apoio à inclusão e à mobilidade urbana.
-
-A aplicação busca facilitar o acesso a informações sobre acessibilidade, valorizando as diferentes necessidades dos usuários e contribuindo para uma sociedade com menos barreiras.
-
-O projeto demonstra como uma solução mobile pode apoiar iniciativas CitizenTech, aproximando a tecnologia de necessidades reais da população.
-
----
-
-## Integrantes
-
-- **Nome:** Beatriz Matos Marques Rosa - **RM:** 554805
-- **Nome:** Keyla Dayana Magne Ala — **RM:** 557630
-- **Nome:**  Lara Rosa Sodré — **RM:** 5555496  
+[**Abrir imagem da tela inicial**](docs/screenshots/tela-inicial
