@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+
 class LocalViewModel(
     private val repository: LocalRepository
 ) : ViewModel() {
