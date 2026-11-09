@@ -1,7 +1,16 @@
 package com.github.lara.sodre.mobilityplus_gs.navigation
 
 import com.github.lara.sodre.mobilityplus_gs.viewmodel.LocalViewModelFactory
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
@@ -26,130 +35,149 @@ fun AppNavigation(
         factory = LocalViewModelFactory(repository)
     )
 
-    NavHost(
-        navController = navController,
-        startDestination = "inicio"
-    ) {
+    val snackbarHostState = remember { SnackbarHostState() }
 
-        // TELA INICIAL
-        composable("inicio") {
+    LaunchedEffect(Unit) {
+        viewModel.mensagens.collect { texto ->
+            snackbarHostState.showSnackbar(texto)
+        }
+    }
 
-            HomeScreen(
+    Box(modifier = Modifier.fillMaxSize()) {
 
-                onLocais = {
-                    navController.navigate("locais")
-                },
+        NavHost(
+            navController = navController,
+            startDestination = "inicio"
+        ) {
 
-                onCadastro = {
-                    navController.navigate("cadastro")
-                },
+            // TELA INICIAL
+            composable("inicio") {
 
-                onPerfil = {
-                    navController.navigate("perfil")
-                }
-            )
+                HomeScreen(
+
+                    onLocais = {
+                        navController.navigate("locais")
+                    },
+
+                    onCadastro = {
+                        navController.navigate("cadastro")
+                    },
+
+                    onPerfil = {
+                        navController.navigate("perfil")
+                    }
+                )
+            }
+
+            // LISTAGEM DE LOCAIS
+            composable("locais") {
+
+                LocaisScreen(
+
+                    viewModel = viewModel,
+
+                    onCadastro = {
+                        navController.navigate("cadastro")
+                    },
+
+                    onDetalhes = { id ->
+                        navController.navigate("detalhes/$id")
+                    },
+
+                    onVoltar = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
+            // CADASTRO
+            composable("cadastro") {
+
+                CadastroScreen(
+
+                    viewModel = viewModel,
+
+                    id = null,
+
+                    onVoltar = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
+            // EDIÇÃO
+            composable(
+                route = "cadastro/{id}",
+
+                arguments = listOf(
+                    navArgument("id") {
+                        type = NavType.IntType
+                    }
+                )
+
+            ) { entrada ->
+
+                val id = entrada.arguments?.getInt("id")
+
+                CadastroScreen(
+
+                    viewModel = viewModel,
+
+                    id = id,
+
+                    onVoltar = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
+            // DETALHES
+            composable(
+                route = "detalhes/{id}",
+
+                arguments = listOf(
+                    navArgument("id") {
+                        type = NavType.IntType
+                    }
+                )
+
+            ) { entrada ->
+
+                val id = entrada.arguments?.getInt("id") ?: 0
+
+                DetalhesScreen(
+
+                    id = id,
+
+                    viewModel = viewModel,
+
+                    onEditar = {
+                        navController.navigate("cadastro/$id")
+                    },
+
+                    onVoltar = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
+            // PERFIL DE ACESSIBILIDADE
+            composable(route = "perfil") {
+                PerfilScreen(
+                    viewModel = viewModel,
+                    onVoltar = {
+                        navController.popBackStack()
+                    }
+                )
+            }
         }
 
-        // LISTAGEM DE LOCAIS
-        composable("locais") {
-
-            LocaisScreen(
-
-                viewModel = viewModel,
-
-                onCadastro = {
-                    navController.navigate("cadastro")
-                },
-
-                onDetalhes = { id ->
-                    navController.navigate("detalhes/$id")
-                },
-
-                onVoltar = {
-                    navController.popBackStack()
-                }
-            )
-        }
-
-        // CADASTRO
-        composable("cadastro") {
-
-            CadastroScreen(
-
-                viewModel = viewModel,
-
-                id = null,
-
-                onVoltar = {
-                    navController.popBackStack()
-                }
-            )
-        }
-
-        // EDIÇÃO
-        composable(
-            route = "cadastro/{id}",
-
-            arguments = listOf(
-                navArgument("id") {
-                    type = NavType.IntType
-                }
-            )
-
-        ) { entrada ->
-
-            val id = entrada.arguments?.getInt("id")
-
-            CadastroScreen(
-
-                viewModel = viewModel,
-
-                id = id,
-
-                onVoltar = {
-                    navController.popBackStack()
-                }
-            )
-        }
-
-        // DETALHES
-        composable(
-            route = "detalhes/{id}",
-
-            arguments = listOf(
-                navArgument("id") {
-                    type = NavType.IntType
-                }
-            )
-
-        ) { entrada ->
-
-            val id = entrada.arguments?.getInt("id") ?: 0
-
-            DetalhesScreen(
-
-                id = id,
-
-                viewModel = viewModel,
-
-                onEditar = {
-                    navController.navigate("cadastro/$id")
-                },
-
-                onVoltar = {
-                    navController.popBackStack()
-                }
-            )
-        }
-
-        // PERFIL DE ACESSIBILIDADE
-        composable(route = "perfil") {
-            PerfilScreen(
-                viewModel = viewModel,
-                onVoltar = {
-                    navController.popBackStack()
-                }
-            )
-        }
+        // MENSAGENS (Snackbar) exibidas sobre qualquer tela
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .navigationBarsPadding()
+        )
     }
 }

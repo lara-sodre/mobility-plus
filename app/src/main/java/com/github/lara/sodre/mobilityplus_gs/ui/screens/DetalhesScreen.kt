@@ -165,12 +165,11 @@ fun DetalhesScreen(
                 Button(
                     onClick = {
 
-                        val atualizado = item.copy(
+                        viewModel.alternarFavorito(item)
+
+                        local = item.copy(
                             favorito = !item.favorito
                         )
-
-                        viewModel.editar(atualizado)
-                        local = atualizado
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
