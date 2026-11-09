@@ -146,23 +146,23 @@ A tela apresenta os estabelecimentos cadastrados, permitindo consultar os regist
 
 Na tela de detalhes, o usuário pode consultar as informações do estabelecimento selecionado e visualizar os recursos de acessibilidade informados no cadastro.
 
-![Detalhes do estabelecimento](docs/screenshots/detalhes-local.png.png)
+![Detalhes do estabelecimento](docs/screenshots/detalhes-local.png)
 
-[**Abrir imagem dos detalhes do estabelecimento**](docs/screenshots/detalhes-local.png.png)
+[**Abrir imagem dos detalhes do estabelecimento**](docs/screenshots/detalhes-local.png)
 
 ### Perfil de acessibilidade
 
 O perfil permite selecionar características relacionadas às necessidades e condições de mobilidade do usuário, contribuindo para uma experiência mais alinhada às suas preferências.
 
-![Perfil de acessibilidade](docs/screenshots/perfil-acessibilidade.png.png)
+![Perfil de acessibilidade](docs/screenshots/perfil-acessibilidade.png)
 
-[**Abrir imagem do perfil de acessibilidade**](docs/screenshots/perfil-acessibilidade.png.png)
+[**Abrir imagem do perfil de acessibilidade**](docs/screenshots/perfil-acessibilidade.png)
 
 ### Confirmação das preferências
 
 Após selecionar as opções desejadas, o usuário pode acionar a opção de salvar preferências. A interface apresenta uma mensagem de confirmação da ação.
 
-![Confirmação das preferências](docs/screenshots/salvar-preferencias..png)
+![Confirmação das preferências](docs/screenshots/salvar-preferencias.png)
 
 [**Abrir imagem da confirmação das preferências**](docs/screenshots/salvar-preferencias.png)
 
