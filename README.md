@@ -192,7 +192,7 @@ Antes de excluir, o aplicativo solicita confirmação do usuário por meio de um
 
 ![Confirmação de exclusão](docs/screenshots/excluir-estabelecimento.png)
 
-[**Abrir imagem da confirmação de exclusão**](docs/screenshots/excluir-estabelecimento.png)
+[**Abrir imagem da confirmação de exclusão](docs/screenshots/excluir-estabelecimento.png)
 
 ### 9. Mensagem de exclusão
 
@@ -259,11 +259,11 @@ Foram implementadas as ações de **editar**, **excluir** (com confirmação) e 
 
 ### 3. Persistência após reabrir o aplicativo
 
-O aplicativo foi fechado completamente (removido dos aplicativos recentes) e aberto novamente. Os registros continuam na lista, pois estão armazenados localmente no Room.
+O aplicativo foi fechado completamente (removido dos aplicativos recentes) e aberto novamente. Os registros cadastrados e as alterações realizadas continuam salvos, demonstrando a persistência dos dados por meio do Room Database.
 
-<!-- TODO: tirar o print da lista após reabrir o app, salvar como docs/screenshots/evidencia-persistencia-apos-reabrir.png e remover os marcadores de comentário abaixo
-![Dados mantidos após reabrir o aplicativo](docs/screenshots/evidencia-persistencia-apos-reabrir.png)
--->
+![Comprovação dos registros e alterações após reabrir o aplicativo](docs/screenshots/comprovacao-registros-alterados.png)
+
+[**Abrir imagem da comprovação dos registros e alterações**](docs/screenshots/comprovacao-registros-alterados.png)
 
 ## Como executar o projeto
 
