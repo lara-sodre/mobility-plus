@@ -291,4 +291,4 @@ O projeto demonstra como uma solução mobile pode apoiar iniciativas CitizenTec
 
 - **Nome:** Beatriz Matos Marques Rosa — **RM:** 554805
 - **Nome:** Keyla Dayana Magne Ala — **RM:** 557630
-- **Nome:** Lara Rosa Sodré — **RM:** 5555496
+- **Nome:** Lara Rosa Sodré — **RM:** 555496
